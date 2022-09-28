@@ -1,6 +1,6 @@
 // https://observablehq.com/@mbostock/voronoi-stippling@403
 function _1(md){return(
-md`# random sidequest #37
+md`# Weighted Voronoi Stippling
 
 
  `
@@ -94,7 +94,7 @@ onmessage = event => {
 
 async function _data(FileAttachment,width,DOM)
 {
-  const image = await FileAttachment("obama.png").image();
+  const image = await FileAttachment("picture").image();
   const height = Math.round(width * image.height / image.width);
   const context = DOM.context2d(width, height, 1);
   context.drawImage(image, 0, 0, image.width, image.height, 0, 0, width, height);
@@ -119,7 +119,7 @@ export default function define(runtime, observer) {
   const main = runtime.module();
   function toString() { return this.url; }
   const fileAttachments = new Map([
-    ["obama.png", {url: new URL("https://i.imgur.com/OlIpVxb.png", import.meta.url), mimeType: "image/png", toString}]
+    ["picture", {url: new URL("https://www.wbw.org/wp-content/uploads/2018/11/uw-tacoma-logo.jpg", import.meta.url), mimeType: "image/png", toString}]
   ]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], _1);
