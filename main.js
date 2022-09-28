@@ -1,4 +1,3 @@
-// https://observablehq.com/@mbostock/voronoi-stippling@403
 function _1(md){return(
 md`# Weighted Voronoi Stippling
 
