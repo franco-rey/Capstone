@@ -1,6 +1,8 @@
 function _1(md){return(
 md`# Weighted Voronoi Stippling
-
+<button type="button" onClick="window.location.reload()">
+   Reload Page
+</button>
 
  `
 )}
