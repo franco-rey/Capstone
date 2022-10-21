@@ -70,7 +70,7 @@ onmessage = event => {
     s.fill(0);
     for (let y = 0, i = 0; y < height; ++y) {
       for (let x = 0; x < width; ++x) {
-        const w = data[y * width + x];
+        const w  = .05 * data[y * width + x];
         i = delaunay.find(x + 0.5, y + 0.5, i);
         s[i] += w;
         c[i * 2] += w * (x + 0.5);
