@@ -1,11 +1,19 @@
 function _1(md){return(
 md`# Weighted Voronoi Stippling
 <button type="button" onClick="window.location.reload()">
-   Reload Page
+   Restart
 </button>
-
+<input id="userInput" type="text" placeholder="X">
+<button onclick="changeX()">Submit</button>
  `
 )}
+
+
+
+function changeX(){
+  let input = document.getElementById("userInput").value;
+  alert(input)
+}
 
 function _image(DOM,width,height,script,invalidation,data,n)
 {
