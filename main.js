@@ -56,7 +56,7 @@ onmessage = event => {
     for (let j = 0; j < 30; ++j) {
       const x = points[i * 2] = Math.floor(Math.random() * width);
       const y = points[i * 2 + 1] = Math.floor(Math.random() * height);
-      if (Math.random() < data[y * width + x]) break;
+      // if (Math.random() < data[y * width + x]) break;
     }
   }
 
@@ -71,9 +71,9 @@ onmessage = event => {
     for (let y = 0, i = 0; y < height; ++y) {
       for (let x = 0; x < width; ++x) {
         const w  = .05 * data[y * width + x];
-        i = delaunay.find(x + 0.5, y + 0.5, i);
-        s[i] += w;
-        c[i * 2] += w * (x + 0.5);
+        i = delaunay.find( x + 0.5, y + 0.5, i);
+        s[i] +=  w;
+        c[i * 2] += w * ( x + 0.5);
         c[i * 2 + 1] += w * (y + 0.5);
       }
     }
@@ -84,8 +84,8 @@ onmessage = event => {
     for (let i = 0; i < n; ++i) {
       const x0 = points[i * 2], y0 = points[i * 2 + 1];
       const x1 = s[i] ? c[i * 2] / s[i] : x0, y1 = s[i] ? c[i * 2 + 1] / s[i] : y0;
-      points[i * 2] = x0 + (x1 - x0) * 1.8 + (Math.random() - 0.5) * w;
-      points[i * 2 + 1] = y0 + (y1 - y0) * 1.8 + (Math.random() - 0.5) * w;
+      points[i * 2] = x0 + (x1 - x0) * .8 + (Math.random() - 0.5) * w;
+      points[i * 2 + 1] = y0 + (y1 - y0) * .8 + (Math.random() - 0.5) * w;
     }
 
     postMessage(points);
