@@ -1,10 +1,5 @@
 function _1(md){return(
-md`# Weighted Voronoi Stippling
-<button type="button" onClick="window.location.reload()">
-   Restart
-</button>
-<input id="userInput" type="text" placeholder="X">
-<button onclick="changeX()">Submit</button>
+md`
  `
 )}
 
@@ -52,6 +47,7 @@ onmessage = event => {
   const s = new Float64Array(n);
 
   // Initialize the points using rejection sampling.
+  // Number of points for a fixed width and height.
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < 30; ++j) {
       const x = points[i * 2] = Math.floor(Math.random() * width);
@@ -72,7 +68,7 @@ onmessage = event => {
       for (let x = 0; x < width; ++x) {
         const w  = .05 * data[y * width + x];
         i = delaunay.find( x + 0.5, y + 0.5, i);
-        s[i] +=  w;
+        s[i] += w;
         c[i * 2] += w * ( x + 0.5);
         c[i * 2 + 1] += w * (y + 0.5);
       }
@@ -109,7 +105,7 @@ async function _data(FileAttachment,width,DOM)
   context.drawImage(image, 0, 0, image.width, image.height, 0, 0, width, height);
   const {data: rgba} = context.getImageData(0, 0, width, height);
   const data = new Float64Array(width * height);
-  for (let i = 0, n = rgba.length / 4; i < n; ++i) data[i] = Math.max(0, 1 - rgba[i * 4] / 254);
+  for (let i = 0, n = ( rgba.length / 4) ; i < n; ++i) data[i] = Math.max(0, 1 - rgba[i * 4] / 254);
   data.width = width;
   data.height = height;
   return data;
