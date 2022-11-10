@@ -106,7 +106,7 @@ async function _data(FileAttachment,width,DOM)
   context.drawImage(image, 0, 0, image.width, image.height, 0, 0, width, height);
   const {data: rgba} = context.getImageData(0, 0, width, height);
   const data = new Float64Array(width * height);
-  for (let i = 0, n = ( rgba.length / 4) ; i < n; ++i) data[i] = Math.max(0, 1 - rgba[((i * 4) + 1)] / 254);
+  for (let i = 0, n = ( rgba.length / 4) ; i < n; ++i) data[i] = Math.max(0, 1 - rgba[((i * 4)+2)] / 254);
   data.width = width;
   data.height = height;
   return data;
@@ -126,7 +126,7 @@ export default function define(runtime, observer) {
   const main = runtime.module();
   function toString() { return this.url; }
   const fileAttachments = new Map([
-    ["picture", {url: new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/RGB_color_model.svg/1004px-RGB_color_model.svg.png", import.meta.url), mimeType: "image/png", toString}]
+    ["picture", {url: new URL("https://media.crystallize.com/snowball/20/3/4/4/color-systems-rgb.jpg", import.meta.url), mimeType: "image/png", toString}]
   ]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], _1);
@@ -137,5 +137,7 @@ export default function define(runtime, observer) {
   main.variable(observer("height")).define("height", ["data"], _height);
   return main;
 }
+
+//https://t4.ftcdn.net/jpg/00/46/66/83/360_F_46668399_Hzmp7e4aiDeb0wtMBmOmQ56G2ZxJIETP.jpg
 
 //./files/14959f050311f400368624031a7b9e4285f35c65ca4022f618f9250d7163ef4b0a0582de20f7d9790ed76b3442b4a77ebb96b86f641c1d8466f6544325144aed
