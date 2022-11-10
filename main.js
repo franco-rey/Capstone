@@ -100,12 +100,13 @@ onmessage = event => {
 async function _data(FileAttachment,width,DOM)
 {
   const image = await FileAttachment("picture").image();
+  //First defining the height in terms of the image
   const height = Math.round(width * image.height / image.width);
   const context = DOM.context2d(width, height, 1);
   context.drawImage(image, 0, 0, image.width, image.height, 0, 0, width, height);
   const {data: rgba} = context.getImageData(0, 0, width, height);
   const data = new Float64Array(width * height);
-  for (let i = 0, n = ( rgba.length / 4) ; i < n; ++i) data[i] = Math.max(0, 1 - rgba[i * 4] / 254);
+  for (let i = 0, n = ( rgba.length / 4) ; i < n; ++i) data[i] = Math.max(0, 1 - rgba[((i * 4) + 1)] / 254);
   data.width = width;
   data.height = height;
   return data;
@@ -114,6 +115,7 @@ async function _data(FileAttachment,width,DOM)
 
 function _n(width,height){return(
 Math.round(width * height / 40)
+//Math.round(width * height / 40)
 )}
 
 function _height(data){return(
@@ -124,7 +126,7 @@ export default function define(runtime, observer) {
   const main = runtime.module();
   function toString() { return this.url; }
   const fileAttachments = new Map([
-    ["picture", {url: new URL("https://www.wbw.org/wp-content/uploads/2018/11/uw-tacoma-logo.jpg", import.meta.url), mimeType: "image/png", toString}]
+    ["picture", {url: new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/RGB_color_model.svg/1004px-RGB_color_model.svg.png", import.meta.url), mimeType: "image/png", toString}]
   ]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], _1);
