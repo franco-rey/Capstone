@@ -106,7 +106,7 @@ async function _data(FileAttachment,width,DOM)
   context.drawImage(image, 0, 0, image.width, image.height, 0, 0, width, height);
   const {data: rgba} = context.getImageData(0, 0, width, height);
   const data = new Float64Array(width * height);
-  for (let i = 0, n = ( rgba.length / 4) ; i < n; ++i) data[i] = Math.max(0, 1 - rgba[((i * 4) + 1)] / 254);
+  for (let i = 0, n = ( rgba.length / 4) ; i < n; ++i) data[i] = Math.max(0, 1 - rgba[((i * 4)+3)] / 254);
   data.width = width;
   data.height = height;
   return data;
@@ -126,7 +126,7 @@ export default function define(runtime, observer) {
   const main = runtime.module();
   function toString() { return this.url; }
   const fileAttachments = new Map([
-    ["picture", {url: new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/RGB_color_model.svg/1004px-RGB_color_model.svg.png", import.meta.url), mimeType: "image/png", toString}]
+    ["picture", {url: new URL("https://i.imgur.com/XfYUZnI.jpg", import.meta.url), mimeType: "image/png", toString}]
   ]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], _1);
